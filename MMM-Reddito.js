@@ -14,6 +14,7 @@ Module.register("MMM-Reddito",{
 	start: function() {
 		var self = this;
 		var theData = null;
+		this.uid = Math.floor((Math.random() * 10000) + 1);
 		// Schedule update timer.
 		this.getData();
 		setInterval(function() {
@@ -34,7 +35,7 @@ Module.register("MMM-Reddito",{
 	},
 
 	getData: function() {
-		this.sendSocketNotification("MMM-Reddito-DATA_CHANGE", this.config);
+		this.sendSocketNotification("MMM-Reddito-DATA_CHANGE", {id: this.uid, config: this.config});
 	},
 
 	scheduleUpdate: function(delay) {
@@ -49,13 +50,17 @@ Module.register("MMM-Reddito",{
 		}, nextLoad);
 	},
 
-	socketNotificationReceived: function (notification, payload) {
+	socketNotificationReceived: function (notification, infoRecv) {
 		var self = this;
 		if(notification === "MMM-Reddito-DATA_CHANGE") {
-			var x2js = new X2JS();
-			var jsonObj = x2js.xml_str2json( payload );
-			self.theData = jsonObj.feed;
-			self.updateDom(1000);
+			var payload = infoRecv.config;
+			var id = infoRecv.id;
+			if(id == this.uid){
+				var x2js = new X2JS();
+				var jsonObj = x2js.xml_str2json( payload );
+				self.theData = jsonObj.feed;
+				self.updateDom();
+			}
 		}
 	},
 
