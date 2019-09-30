@@ -1,7 +1,7 @@
 # MMM-Reddito
 A plugin for MagicMirror to display posts from a subreddit.
 
-[[https://github.com/bittiez/MMM-Reddito/blob/master/img/reddito.png|alt=octocat]]
+![Reddito](/reddito.png)
 
 # Installation
 `cd MagicMirror\modules\` -> `git clone https://github.com/bittiez/MMM-Reddito.git`  
