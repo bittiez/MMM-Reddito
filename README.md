@@ -21,3 +21,4 @@ config: {
   width: "700px",
 }
 ```
+Note: To create multiple instances, just insert this as many times as you would like.

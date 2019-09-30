@@ -24,7 +24,7 @@ module.exports = NodeHelper.create({
 		if (notification === "MMM-Reddito-DATA_CHANGE") {
 			var payload = infoRecv.config;
 			var id = infoRecv.id;
-			
+
 			var urlApi = "https://reddit.com/r/" + payload.subreddit + "/" + payload.sortby + "/.rss";
 			request({ url: urlApi, method: 'GET' }, function (error, response, body) {
 				if (!error && response.statusCode == 200) {

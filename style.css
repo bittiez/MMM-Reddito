@@ -1,15 +1,18 @@
 .reddito-header {
-	margin-bottom: 0px;
-}
-.reddito-title {
 	font-size: 1em;
+	margin: 1em;
 }
 .reddito-summary {
 	font-size: 0.5em;
 }
 .reddito-entry {
 	display: block;
-	border-bottom: 1px solid white;
 	text-align: center;
+	line-height: 1.5em;
+	margin: 10px;
+}
+.reddito-footnote {
+	display: inline;
+	color: #777777;
 	line-height: 1.5em;
 }

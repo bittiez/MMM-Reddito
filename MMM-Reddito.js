@@ -25,6 +25,7 @@ Module.register("MMM-Reddito",{
 	getScripts: function() {
 		return [
 			'xml2json.min.js',
+			'moment.min.js',
 		]
 	},
 
@@ -71,28 +72,28 @@ Module.register("MMM-Reddito",{
 		wrapper.style.minWidth = this.config.width;
 		wrapper.style.maxWidth = this.config.width;
 
-		var title = document.createElement("div");
-		title.setAttribute('class', 'reddito-title');
-
 		var headerLabel = document.createElement("header");
 		headerLabel.setAttribute('class', 'reddito-header module-header');
 
-		headerLabel.innerHTML = "<span style=\"text-decoration: underline;\">" + this.config.headerText + "</span>";
+		headerLabel.innerHTML = this.config.headerText;
 
 		var summary = document.createElement("span");
 		summary.setAttribute('class', 'reddito-summary');
 
 		if(this.theData != null){
-			var entry;
+			var entry, footnote;
 			for (var i = 0; i < this.config.showCount; i++) {
 				entry = document.createElement("span");
 				entry.setAttribute('class', 'reddito-entry');
 				entry.innerHTML = this.theData.entry[i].title;
+				footnote = document.createElement("span");
+				footnote.setAttribute('class', 'reddito-footnote');
+				footnote.innerHTML = " - " + moment(this.theData.entry[i].updated).format("MMM Do, YY");
+				entry.appendChild(footnote);
 				summary.appendChild(entry);
 			}
 		}
 		wrapper.appendChild(headerLabel);
-		wrapper.appendChild(title);
 		wrapper.appendChild(summary);
 		return wrapper;
 	},
