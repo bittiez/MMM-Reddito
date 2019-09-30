@@ -22,7 +22,7 @@ module.exports = NodeHelper.create({
 	socketNotificationReceived: function(notification, payload) {
 		var self = this;
 		if (notification === "MMM-Reddito-DATA_CHANGE") {
-			var urlApi = "";
+			var urlApi = "https://reddit.com/r/" + payload.subreddit + "/" + payload.sortby + "/.rss";
 
 			request({ url: urlApi, method: 'GET' }, function (error, response, body) {
 				if (!error && response.statusCode == 200) {

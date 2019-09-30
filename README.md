@@ -7,3 +7,17 @@ A plugin for MagicMirror to display posts from a subreddit.
 
 # Updating
 `cd MagicMirror\Modules\MMM-Reddito\` -> `git pull`
+
+# Config
+```
+module: 'MMM-Reddito',
+position: 'top_left',
+config: {
+  updateInterval: 120000,
+  headerText: "Reddito",
+  subreddit: "news",
+  sortby: "hot", //hot, new, or top
+  showCount: "5", //Max 25
+  width: "700px",
+}
+```

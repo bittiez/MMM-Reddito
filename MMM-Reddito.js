@@ -2,15 +2,18 @@ Module.register("MMM-Reddito",{
 	// Default module config.
 	defaults: {
 		updateInterval: 120000,
-		headerText: "Reddito"
+		headerText: "Reddito",
+		subreddit: "news",
+		sortby: "hot", //hot, new, or top
+		showCount: "5", //Max 25
+		width: "700px",
 	},
 
 	requiresVersion: "2.1.0",
 
 	start: function() {
 		var self = this;
-		var dataNotification = null;
-
+		var theData = null;
 		// Schedule update timer.
 		this.getData();
 		setInterval(function() {
@@ -18,11 +21,11 @@ Module.register("MMM-Reddito",{
 		}, this.config.updateInterval);
 	},
 
-	// getScripts: function() {
-	// 	return [
-	// 		'',
-	// 	]
-	// },
+	getScripts: function() {
+		return [
+			'xml2json.min.js',
+		]
+	},
 
 	getStyles: function() {
 		return [
@@ -31,8 +34,7 @@ Module.register("MMM-Reddito",{
 	},
 
 	getData: function() {
-		var self = this;
-		this.sendSocketNotification("MMM-Reddito-DATA_CHANGE", null);
+		this.sendSocketNotification("MMM-Reddito-DATA_CHANGE", this.config);
 	},
 
 	scheduleUpdate: function(delay) {
@@ -50,7 +52,10 @@ Module.register("MMM-Reddito",{
 	socketNotificationReceived: function (notification, payload) {
 		var self = this;
 		if(notification === "MMM-Reddito-DATA_CHANGE") {
-			self.updateDom(self.config.animationSpeed);
+			var x2js = new X2JS();
+			var jsonObj = x2js.xml_str2json( payload );
+			self.theData = jsonObj.feed;
+			self.updateDom(1000);
 		}
 	},
 
@@ -58,18 +63,31 @@ Module.register("MMM-Reddito",{
 	getDom: function() {
 		var self = this;
 		var wrapper = document.createElement("div");
-		var wotd = document.createElement("div");
-		wotd.setAttribute('class', 'reddito-title');
+		wrapper.style.minWidth = this.config.width;
+		wrapper.style.maxWidth = this.config.width;
+
+		var title = document.createElement("div");
+		title.setAttribute('class', 'reddito-title');
+
 		var headerLabel = document.createElement("header");
 		headerLabel.setAttribute('class', 'reddito-header module-header');
+
 		headerLabel.innerHTML = "<span style=\"text-decoration: underline;\">" + this.config.headerText + "</span>";
+
 		var summary = document.createElement("span");
 		summary.setAttribute('class', 'reddito-summary');
-		if(this.dataNotification != null){
 
+		if(this.theData != null){
+			var entry;
+			for (var i = 0; i < this.config.showCount; i++) {
+				entry = document.createElement("span");
+				entry.setAttribute('class', 'reddito-entry');
+				entry.innerHTML = this.theData.entry[i].title;
+				summary.appendChild(entry);
+			}
 		}
 		wrapper.appendChild(headerLabel);
-		wrapper.appendChild(wotd);
+		wrapper.appendChild(title);
 		wrapper.appendChild(summary);
 		return wrapper;
 	},
