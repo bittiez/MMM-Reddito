@@ -1,5 +1,5 @@
 /* Magic Mirror
- * Node Helper: MMM-MWWordOfTheDay
+ * Node Helper: MMM-Reddito
  *
  * By bittiez
  * MIT Licensed.
@@ -21,9 +21,9 @@ module.exports = NodeHelper.create({
 	 */
 	socketNotificationReceived: function(notification, payload) {
 		var self = this;
-		if (notification === "MMM-MWWordOfTheDay-DATA_CHANGE") {
-			var urlApi = "https://www.merriam-webster.com/wotd/feed/rss2";
-			
+		if (notification === "MMM-Reddito-DATA_CHANGE") {
+			var urlApi = "";
+
 			request({ url: urlApi, method: 'GET' }, function (error, response, body) {
 				if (!error && response.statusCode == 200) {
 					var result = body;
@@ -37,6 +37,6 @@ module.exports = NodeHelper.create({
 
 	// Example function send notification test
 	sendNotificationUpdate: function(payload) {
-		this.sendSocketNotification("MMM-MWWordOfTheDay-DATA_CHANGE", payload);
+		this.sendSocketNotification("MMM-Reddito-DATA_CHANGE", payload);
 	},
 });
