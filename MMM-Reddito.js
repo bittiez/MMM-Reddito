@@ -18,7 +18,7 @@ Module.register("MMM-Reddito",{
 		// Schedule update timer.
 		this.getData();
 		setInterval(function() {
-			self.updateDom();
+			self.getData();
 		}, this.config.updateInterval);
 	},
 
