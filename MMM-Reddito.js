@@ -37,9 +37,6 @@ Module.register("MMM-Reddito",{
 
 	getData: function() {
 		this.sendSocketNotification("MMM-Reddito-DATA_CHANGE", {id: this.uid, config: this.config});
-		setInterval(function() {
-			self.getData();
-		}, this.config.updateInterval);
 	},
 
 	scheduleUpdate: function(delay) {
