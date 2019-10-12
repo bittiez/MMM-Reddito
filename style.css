@@ -4,6 +4,9 @@
 }
 .reddito-summary {
 	font-size: 0.5em;
+	overflow: hidden;
+	max-width: inherit;
+	max-height: inherit;
 }
 .reddito-entry {
 	display: block;
@@ -15,4 +18,7 @@
 	display: inline;
 	color: #777777;
 	line-height: 1.5em;
+}
+.reddito-wrapper {
+	overflow: hidden;
 }

@@ -5,8 +5,11 @@ Module.register("MMM-Reddito",{
 		headerText: "Reddito",
 		subreddit: "news",
 		sortby: "hot", //hot, new, or top
-		showCount: "5", //Max 25
+		showCount: "25", //Max 25
 		width: "700px",
+		height: "12em",
+		marquee: true,
+		marqueeSpeed: "30000",
 	},
 
 	requiresVersion: "2.1.0",
@@ -26,6 +29,8 @@ Module.register("MMM-Reddito",{
 		return [
 			'xml2json.min.js',
 			'moment.min.js',
+			'redditojs.js',
+			'jquery.min.js',
 		]
 	},
 
@@ -69,20 +74,28 @@ Module.register("MMM-Reddito",{
 	getDom: function() {
 		var self = this;
 		var wrapper = document.createElement("div");
+		wrapper.setAttribute('class', 'reddito-wrapper');
 		wrapper.style.minWidth = this.config.width;
 		wrapper.style.maxWidth = this.config.width;
+		wrapper.style.maxHeight = this.config.height;
+		wrapper.style.minHeight = this.config.height;
 
 		var headerLabel = document.createElement("header");
 		headerLabel.setAttribute('class', 'reddito-header module-header');
 
 		headerLabel.innerHTML = this.config.headerText;
 
-		var summary = document.createElement("span");
+		var summary = document.createElement("div");
 		summary.setAttribute('class', 'reddito-summary');
+		if(this.config.marquee)
+			setRedditoMarquee(summary, this.config.marqueeSpeed);
+			//summary.setAttribute('onload', 'setRedditoMarquee(this, '+this.config.marqueeSpeed+')');
 
 		if(this.theData != null){
 			var entry, footnote;
 			for (var i = 0; i < this.config.showCount; i++) {
+				if(i >= this.theData.entry.length)
+					break;
 				entry = document.createElement("span");
 				entry.setAttribute('class', 'reddito-entry');
 				entry.innerHTML = this.theData.entry[i].title;
