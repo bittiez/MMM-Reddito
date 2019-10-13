@@ -12,15 +12,20 @@ A plugin for MagicMirror to display posts from a subreddit.
 
 # Config
 ```
-module: 'MMM-Reddito',
-position: 'top_left',
-config: {
-  updateInterval: 120000,
-  headerText: "Reddito",
-  subreddit: "news",
-  sortby: "hot", //hot, new, or top
-  showCount: "5", //Max 25
-  width: "700px",
+{
+  module: 'MMM-Reddito',
+  position: 'top_left',
+  config: {
+    updateInterval: 3600000,
+    headerText: "Reddito",
+    subreddit: "news",
+    sortby: "hot", //hot, new, or top
+    showCount: "25", //Max 25
+    width: "700px",
+    height: "12em",
+    marquee: true,
+    marqueeSpeed: "30000",
+  }
 }
 ```
 Note: To create multiple instances, just insert this as many times as you would like.
