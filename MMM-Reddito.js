@@ -1,7 +1,7 @@
 Module.register("MMM-Reddito",{
 	// Default module config.
 	defaults: {
-		updateInterval: 600000,
+		updateInterval: 3600000,
 		headerText: "Reddito",
 		subreddit: "news",
 		sortby: "hot", //hot, new, or top
